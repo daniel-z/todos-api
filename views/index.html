@@ -10,10 +10,32 @@
       <li> <i>GET</i> - all ToDos as JSON: <a href="/api/todos">/api/todos</a> </li>
       <li> <i>GET</i> - one ToDo as JSON: /api/todos/:id </li>
       <li> <i>POST</i> - one ToDo: /api/todos </li>
+      <li> <i>PUT</i> - /api/todos/:id </li>
     </ul>
 
     <br/>
     <br/>
+    <h2>GET</h2>
+    <p>
+      <span>/api/todos</span><br/>
+      To GET all tasks <br/>
+
+      returns: JSON Object
+      <pre>
+        <code>
+[{
+    id: 83515750,
+    description: "A new task",
+    completed: false
+},
+{
+    id: 1098762,
+    description: "other task",
+    completed: false
+}]
+        </code>
+      </pre>
+    </p>
 
     <h2>POST</h2>
     <p>
@@ -38,7 +60,40 @@
       <pre>
         <code>
 {
-    id: 6,
+    id: 83515750,
+    description: "A new task",
+    completed: false
+}
+        </code>
+      </pre>
+    </p>
+
+
+    <h2>PUT</h2>
+    <p>
+      <span>/api/todos/:id</span><br/>
+      To Update a ToDo task send a json with the next attributes: <br/>
+      <ul>
+        <li>description: &lt; String &gt;</li>
+        <li>completed: &lt; Boolean &gt;</li>
+      </ul>
+
+      example:
+      <pre>
+        <code>
+{
+  description: "A new task",
+  completed: false
+}
+        </code>
+      </pre>
+
+
+      returns: JSON Object
+      <pre>
+        <code>
+{
+    id: 83515750,
     description: "A new task",
     completed: false
 }
