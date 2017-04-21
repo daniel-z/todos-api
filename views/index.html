@@ -11,5 +11,39 @@
       <li> <i>GET</i> - one ToDo as JSON: /api/todos/:id </li>
       <li> <i>POST</i> - one ToDo: /api/todos </li>
     </ul>
+
+    <br/>
+    <br/>
+
+    <h2>POST</h2>
+    <p>
+      To Post a ToDo task send a json with the next attributes: <br/>
+      <ul>
+        <li>description: &lt; String &gt;</li>
+        <li>completed: &lt; Boolean &gt;</li>
+      </ul>
+
+      example:
+      <pre>
+        <code>
+{
+  description: "A new task",
+  completed: false
+}
+        </code>
+      </pre>
+
+
+      returns: JSON Object
+      <pre>
+        <code>
+{
+    id: 6,
+    description: "A new task",
+    completed: false
+}
+        </code>
+      </pre>
+    </p>
   </body>
 </html>
