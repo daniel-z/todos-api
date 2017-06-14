@@ -29,7 +29,7 @@ var todos = [
   },
   {
     id: 40016268,
-    description: 'Ask for any question you have regarding this.',
+    description: 'Ask any question you have regarding this assignment.',
     completed: false
   },
   {
@@ -46,6 +46,12 @@ function randomInt () {
 }
 
 var todoNextId = 1;
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 app.use(bodyParser.json());
 
