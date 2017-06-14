@@ -5,5 +5,6 @@
 # Instructions:
 1. $ git clone https://github.com/daniel-z/todos-api
 2. $ npm install
-3. Open in your browser: http://localhost:3000/api
-4. Read the API spec
+3. $ node server.js
+4. Open in your browser: http://localhost:3000/api
+5. Read the API spec
