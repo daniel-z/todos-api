@@ -5,22 +5,12 @@
     <title>ToDos API</title>
   </head>
   <body>
-    <h1>Welcome to the ToDos API</h1>
-    <ul>
-      <li> <i>GET</i> - all ToDos as JSON: <a href="/api/todos">/api/todos</a> </li>
-      <li> <i>GET</i> - one ToDo as JSON: /api/todos/:id </li>
-      <li> <i>POST</i> - one ToDo: /api/todos </li>
-      <li> <i>PUT</i> - /api/todos/:id </li>
-    </ul>
+    <h1>Welcome to the ToDos API DOCUMENTATION</h1>
 
     <br/>
     <br/>
-    <h2>GET</h2>
-    <p>
-      <span>/api/todos</span><br/>
-      To GET all tasks <br/>
-
-      returns: JSON Object
+    <h2>Get all tasks <span>[GET /api/todos]</span></h2>
+    <h3>Response <span>[JSON]</span></h3>
       <pre>
         <code>
 [{
@@ -35,17 +25,32 @@
 }]
         </code>
       </pre>
+
+    <h2>Get a single task <span>[GET /api/todos/:id]</span></h2>
+    <h3>Response <span>[JSON]</span></h3>
+    <pre>
+        <code>
+[{
+    id: 83515750,
+    description: "A new task",
+    completed: false
+},
+{
+    id: 1098762,
+    description: "other task",
+    completed: false
+}]
+        </code>
+      </pre>
+
+    <h2>Create a new task <span>[POST /api/todos]</span></h2>
+    <h3>Request <span>[JSON]</span></h3>
+    <p>
+        // Requires the next data attributes <br/>
+        @ description: &lt; String &gt; <br/>
+        @ completed: &lt; Boolean &gt; <br/>
     </p>
 
-    <h2>POST</h2>
-    <p>
-      To Post a ToDo task send a json with the next attributes: <br/>
-      <ul>
-        <li>description: &lt; String &gt;</li>
-        <li>completed: &lt; Boolean &gt;</li>
-      </ul>
-
-      example:
       <pre>
         <code>
 {
@@ -56,7 +61,7 @@
       </pre>
 
 
-      returns: JSON Object
+    <h3>Response <span>[JSON]</span></h3>
       <pre>
         <code>
 {
@@ -66,39 +71,46 @@
 }
         </code>
       </pre>
+
+    <h2>Update a task <span>[PUT /api/todos/:id]</span></h2>
+    <h3>Request <span>[JSON]</span></h3>
+    <p>
+        // Requires the next data attributes <br/>
+        @ description: &lt; String &gt; <br/>
+        @ completed: &lt; Boolean &gt; <br/>
     </p>
 
-
-    <h2>PUT</h2>
-    <p>
-      <span>/api/todos/:id</span><br/>
-      To Update a ToDo task send a json with the next attributes: <br/>
-      <ul>
-        <li>description: &lt; String &gt;</li>
-        <li>completed: &lt; Boolean &gt;</li>
-      </ul>
-
-      example:
       <pre>
         <code>
 {
   description: "A new task",
-  completed: false
+  completed: true
 }
         </code>
       </pre>
 
 
-      returns: JSON Object
+    <h3>Response <span>[JSON]</span></h3>
       <pre>
         <code>
 {
     id: 83515750,
     description: "A new task",
-    completed: false
+    completed: true
 }
         </code>
       </pre>
-    </p>
+
+
+    <h2>Delete a task <span>[DELETE /api/todos/:id]</span></h2>
+    <h3>Response <span>[JSON]</span></h3>
+    <pre>
+        <code>
+{
+    deleted: true
+}
+        </code>
+      </pre>
+
   </body>
 </html>
