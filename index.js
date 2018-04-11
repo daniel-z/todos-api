@@ -5,6 +5,8 @@ var bodyParser = require('body-parser');
 var _ = require('underscore');
 var path = require("path");
 
+var utils = require('./utils');
+
 var app = express();
 var PORT = process.env.PORT || 3000;
 
@@ -12,49 +14,9 @@ var todos = JSON.parse(fs.readFileSync("./data/todos.json"));
 
 var app = express();
 
-var objectToString = function(dataObject, pre, post, identation) {
-    pre = pre || '';
-    post = post || '';
-    identation = identation || '';
-
-    var lines = pre + identation + '{\n';
-    Object.keys(dataObject).forEach(function (key) {
-        lines += identation + "  '" + key + "' : '" + dataObject[key] + "', \n";
-    });
-    lines += identation + '}'+ post +'\n';
-    return lines;
-};
-
-var jsonToString = function (jsonData) {
-    var jsonString = '';
-    var pre = '';
-    var post = ',';
-    var identation = '  '
-
-    if (jsonData instanceof Array) {
-        jsonString += '[\n';
-        jsonData.forEach(function(arrayItem) {
-            jsonString += objectToString(arrayItem, pre, post, identation);
-        });
-        jsonString += ']\n'
-    } else if (jsonData instanceof Object) {
-        jsonString = objectToString(jsonData);
-    }
-    return jsonString;
-};
-
 var hbs = exphbs.create({
     defaultLayout: 'main',
-    helpers: {
-        jsonToString: jsonToString,
-        jsonArrayOfObjectsToString: function (dataArray) {
-            var dataString = '';
-            dataArray.forEach(function (object) {
-                dataObjecttoString(object);
-            });
-            return dataString;
-        },
-    }
+    helpers: { jsonToString: utils.jsonToString }
 });
 
 app.engine('handlebars', hbs.engine);
