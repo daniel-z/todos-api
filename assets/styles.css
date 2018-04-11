@@ -48,6 +48,10 @@ header {
     text-align: center;
 }
 
+.main-description {
+    margin: 20px 0 50px;
+}
+
 .description {
     margin-top: 25px;
 }
