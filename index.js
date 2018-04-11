@@ -1,6 +1,6 @@
 var express = require('express');
 var exphbs  = require('express-handlebars');
-
+var fs = require("fs");
 var bodyParser = require('body-parser');
 var _ = require('underscore');
 var path = require("path");
@@ -8,47 +8,7 @@ var path = require("path");
 var app = express();
 var PORT = process.env.PORT || 3000;
 
-var todos = [
-  {
-    id: 83515750,
-    description: 'Create a ToDo App.',
-    completed: false
-  },
-  {
-    id: 51839147,
-    description: 'Consume ToDo API.',
-    completed: false
-  },
-  {
-    id: 71862996,
-    description: 'Use the frameworks, tools and resources that you need.',
-    completed: false
-  },
-  {
-    id: 95484409,
-    description: 'Follow proposed design.',
-    completed: false
-  },
-  {
-    id: 40016268,
-    description: 'Ask any question you have regarding this assignment.',
-    completed: false
-  },
-  {
-    id: 8370263,
-    description: 'Use best practices, design patterns and the best code styles.',
-    completed: false
-  }
-];
-
-function randomInt () {
-  var low = 0;
-  var high = 100000000;
-  return Math.floor(Math.random() * (high - low) + low);
-}
-
-var todoNextId = 1;
-
+var todos = JSON.parse(fs.readFileSync("./data/todos.json"));
 
 var app = express();
 
@@ -96,6 +56,7 @@ var hbs = exphbs.create({
         },
     }
 });
+
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
@@ -114,76 +75,7 @@ app.use(bodyParser.json());
 // ----------------------------------------------------------------------------------------------------------------
 app.use('/static', express.static('assets'))
 
-
-const dataApi = [{
-    title: 'Get all tasks',
-    method: 'get',
-    url: '/api/todos',
-    description: '',
-    response: [{
-        id: 83515750,
-        description: "A new task",
-        completed: false
-    },
-    {
-        id: 1098762,
-        description: "other task",
-        completed: false
-    }],
-},{
-    title: 'Get a single task',
-    method: 'get',
-    url: '/api/todos/{id}',
-    description: '',
-    response: {
-        id: 83515750,
-        description: "A new task",
-        completed: false
-    },
-}, {
-    title: 'Create new task',
-    method: 'post',
-    url: '/api/todos',
-    description:
-    "Create a request with the next data attributes: <br/>" +
-    "&nbsp;&nbsp;- description: [String] <br/>" +
-    "&nbsp;&nbsp;- completed: [Boolean] <br/>",
-    request: {
-        description: "A new task",
-        completed: false
-    },
-    response: {
-        id: 83515750,
-        description: "A new task",
-        completed: false
-    },
-}, {
-    title: 'Update a task',
-    method: 'put',
-    url: '/api/todos/{id}',
-    description:
-    "Create a request with the next data attributes: <br/>" +
-    "&nbsp;&nbsp;- description: [String] <br/>" +
-    "&nbsp;&nbsp;- completed: [Boolean] <br/>",
-    request: {
-        description: "The same task modified",
-        completed: true
-    },
-    response: {
-        id: 83515750,
-        description: "The same task modified",
-        completed: true
-    },
-}, {
-    title: 'Delete a task',
-    method: 'delete',
-    url: '/api/todos/{id}',
-    description: '',
-    response: {
-        deleted: true
-    },
-}];
-
+const dataApi = JSON.parse(fs.readFileSync("./data/api-data.json"));
 
 app.get('/', function (req, res) {
     res.render('index', { tasks: dataApi });

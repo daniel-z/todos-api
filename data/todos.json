@@ -1,0 +1,32 @@
+[
+  {
+    "id": "83515750",
+    "description": "Create a ToDo App.",
+    "completed": false
+  },
+  {
+    "id": "51839147",
+    "description": "Consume ToDo API.",
+    "completed": false
+  },
+  {
+    "id": "71862996",
+    "description": "Use the frameworks, tools and resources that you need.",
+    "completed": false
+  },
+  {
+    "id": "95484409",
+    "description": "Follow proposed design.",
+    "completed": false
+  },
+  {
+    "id": "40016268",
+    "description": "Ask any question you have regarding this assignment.",
+    "completed": false
+  },
+  {
+    "id": "8370263",
+    "description": "Use best practices, design patterns and the best code styles.",
+    "completed": false
+  }
+]
