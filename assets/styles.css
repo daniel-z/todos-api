@@ -40,12 +40,19 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+footer,
 header {
     background-color: #563d7c;
     padding: 20px;
     color: #fff;
     margin-bottom: 50px;
     text-align: center;
+}
+
+footer {
+    margin-top: 50px;
+    margin-bottom: 0;
+    height: 100px;
 }
 
 .main-description {
