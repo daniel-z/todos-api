@@ -1,4 +1,6 @@
 var express = require('express');
+var exphbs  = require('express-handlebars');
+
 var bodyParser = require('body-parser');
 var _ = require('underscore');
 var path = require("path");
@@ -47,6 +49,57 @@ function randomInt () {
 
 var todoNextId = 1;
 
+
+var app = express();
+
+var objectToString = function(dataObject, pre, post, identation) {
+    pre = pre || '';
+    post = post || '';
+    identation = identation || '';
+
+    var lines = pre + identation + '{\n';
+    Object.keys(dataObject).forEach(function (key) {
+        lines += identation + "  '" + key + "' : '" + dataObject[key] + "', \n";
+    });
+    lines += identation + '}'+ post +'\n';
+    return lines;
+};
+
+var jsonToString = function (jsonData) {
+    var jsonString = '';
+    var pre = '';
+    var post = ',';
+    var identation = '  '
+
+    if (jsonData instanceof Array) {
+        jsonString += '[\n';
+        jsonData.forEach(function(arrayItem) {
+            jsonString += objectToString(arrayItem, pre, post, identation);
+        });
+        jsonString += ']\n'
+    } else if (jsonData instanceof Object) {
+        jsonString = objectToString(jsonData);
+    }
+    return jsonString;
+};
+
+var hbs = exphbs.create({
+    defaultLayout: 'main',
+    helpers: {
+        jsonToString: jsonToString,
+        jsonArrayOfObjectsToString: function (dataArray) {
+            var dataString = '';
+            dataArray.forEach(function (object) {
+                dataObjecttoString(object);
+            });
+            return dataString;
+        },
+    }
+});
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+
+// SET CORS HEADERS
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
@@ -56,9 +109,90 @@ app.use(function(req, res, next) {
 
 app.use(bodyParser.json());
 
-app.get('/api', function (req, res) {
-  res.sendFile(path.join(__dirname+'/views/index.html'));
-});
+// ----------------------------------------------------------------------------------------------------------------
+// VIEWS
+// ----------------------------------------------------------------------------------------------------------------
+app.use('/static', express.static('assets'))
+
+
+const dataApi = [{
+    title: 'Get all tasks',
+    method: 'get',
+    url: '/api/todos',
+    description: '',
+    response: [{
+        id: 83515750,
+        description: "A new task",
+        completed: false
+    },
+    {
+        id: 1098762,
+        description: "other task",
+        completed: false
+    }],
+},{
+    title: 'Get a single task',
+    method: 'get',
+    url: '/api/todos/{id}',
+    description: '',
+    response: {
+        id: 83515750,
+        description: "A new task",
+        completed: false
+    },
+}, {
+    title: 'Create new task',
+    method: 'post',
+    url: '/api/todos',
+    description:
+    "Create a request with the next data attributes: <br/>" +
+    "&nbsp;&nbsp;- description: [String] <br/>" +
+    "&nbsp;&nbsp;- completed: [Boolean] <br/>",
+    request: {
+        description: "A new task",
+        completed: false
+    },
+    response: {
+        id: 83515750,
+        description: "A new task",
+        completed: false
+    },
+}, {
+    title: 'Update a task',
+    method: 'put',
+    url: '/api/todos/{id}',
+    description:
+    "Create a request with the next data attributes: <br/>" +
+    "&nbsp;&nbsp;- description: [String] <br/>" +
+    "&nbsp;&nbsp;- completed: [Boolean] <br/>",
+    request: {
+        description: "The same task modified",
+        completed: true
+    },
+    response: {
+        id: 83515750,
+        description: "The same task modified",
+        completed: true
+    },
+}, {
+    title: 'Delete a task',
+    method: 'delete',
+    url: '/api/todos/{id}',
+    description: '',
+    response: {
+        deleted: true
+    },
+}];
+
+
+app.get('/', function (req, res) {
+    res.render('index', { tasks: dataApi });
+})
+
+
+// ----------------------------------------------------------------------------------------------------------------
+// API
+// ----------------------------------------------------------------------------------------------------------------
 
 app.get('/api/todos', function (req, res) {
   res.json(todos);

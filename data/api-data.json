@@ -1,0 +1,16 @@
+[{
+  title: 'Get all tasks',
+  method: 'get',
+  url: '/api/todos',
+  response: '[{
+      id: 83515750,
+      description: "A new task",
+      completed: false
+    },
+    {
+      id: 1098762,
+      description: "other task",
+      completed: false
+    }]',
+
+}]
