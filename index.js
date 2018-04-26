@@ -4,7 +4,7 @@ var fs = require("fs");
 var bodyParser = require('body-parser');
 var _ = require('underscore');
 var path = require("path");
-
+var randomInt = require('random-int');
 var utils = require('./utils');
 
 var app = express();
@@ -96,7 +96,7 @@ app.post('/api/todos', function (req, res) {
 
   body.description = body.description.trim();
 
-  body.id = randomInt();
+  body.id = randomInt(99999999);
   todos.push(body);
 
   res.json(body);
