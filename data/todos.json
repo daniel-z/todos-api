@@ -7,12 +7,12 @@
   {
     "id": "51839147",
     "description": "Consume ToDo API.",
-    "completed": false
+    "completed": true
   },
   {
     "id": "71862996",
     "description": "Use the frameworks, tools and resources that you need.",
-    "completed": false
+    "completed": true
   },
   {
     "id": "95484409",
@@ -22,7 +22,7 @@
   {
     "id": "40016268",
     "description": "Ask any question you have regarding this assignment.",
-    "completed": false
+    "completed": true
   },
   {
     "id": "8370263",
